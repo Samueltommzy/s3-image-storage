@@ -1,0 +1,7 @@
+api:
+  handler: index.handler
+  events:
+    - httpApi:
+        path: /{proxy+}
+        method: ANY
+  role: S3CustomRole

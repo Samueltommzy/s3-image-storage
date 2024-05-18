@@ -1,18 +1,16 @@
-const serverless = require("serverless-http");
-const express = require("express");
+"use strict";
+import serverless from "serverless-http";
+import express from "express";
+import { ImageStorageHandler } from "./handlers/image-store/image-storage";
+import bodyParser from "body-parser";
+import { ImageRetrieveHandler } from "./handlers/image-retrieve/image-retrieve";
 const app = express();
 
-app.get("/", (req, res, next) => {
-  return res.status(200).json({
-    message: "Hello from root!",
-  });
-});
+app.use(bodyParser.json());
 
-app.get("/path", (req, res, next) => {
-  return res.status(200).json({
-    message: "Hello from path!",
-  });
-});
+app.post("/v1/storeimage", ImageStorageHandler);
+
+app.get("/v1/getimage", ImageRetrieveHandler);
 
 app.use((req, res, next) => {
   return res.status(404).json({
@@ -20,4 +18,4 @@ app.use((req, res, next) => {
   });
 });
 
-module.exports.handler = serverless(app);
+export const handler = serverless(app);

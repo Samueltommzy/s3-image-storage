@@ -1,12 +1,35 @@
 service: s3-image-storage
-frameworkVersion: '3'
+frameworkVersion: "3"
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
 
 provider:
   name: aws
+  profile: ${self:custom.env.aws_profile,'default'}
+  stage: ${opt:stage, 'local'}
   runtime: nodejs18.x
-
+  memorySize: 512
+  region: eu-west-2
+  apiName: ${self:service}-${self:provider.stage}
+  logRetentionInDays: 14
+  environment:
+    S3_IMAGE_BUCKET: "${self:provider.apiName}-images"
+    DEBUG: ""
+    REGION: ${self:provider.region}
+custom:
+  env: ${file(env.${self:provider.stage}.yml)}
+  webpack:
+    webpackConfig: webpack.config.js
+    excludeFiles: src/**/*.test.js
+    excludeRegex: \.ts|test|\.map
+    includeModules:
+      forceExclude:
+        - aws-sdk
+  warmup:
+    enabled: true
 functions:
-  api:
-    handler: index.handler
-    events:
-      - httpApi: '*'
+  - ${file(serverless/functions/api.yml)}
+resources:
+  - ${file(serverless/resources/s3.yml)}
