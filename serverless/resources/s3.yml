@@ -1,44 +1,44 @@
 Resources:
-    S3CustomRole:
-      Type: AWS::IAM::Role
-      Properties:
-        RoleName: s3CustomRole
-        AssumeRolePolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal:
-                  Service:
-                    - lambda.amazonaws.com
-              Action: sts:AssumeRole
-        Policies:
-          - PolicyName: s3CustomAccess
-            PolicyDocument: 
-              Version: '2012-10-17'
-              Statement:  
-                - Effect: Allow
-                  Action:
-                    - s3:PutObject
-                    - s3:GetObject
-                  Resource:
-                    Fn::Join:
-                      - ''
-                      - 
-                        - 'arn:aws:s3:::'
-                        - Ref: S3ImageBucket
-                        - '/*'
-    S3ImageBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: '${self:provider.apiName}-images'
-        CorsConfiguration:
-          CorsRules:
-            - AllowedOrigins:
-                - '*'
-              AllowedMethods:
-                - PUT
-                - GET
-              AllowedHeaders:
-                - '*'        
+  S3CustomRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: s3CustomRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+                Service:
+                  - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: s3CustomAccess
+          PolicyDocument: 
+            Version: '2012-10-17'
+            Statement:  
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                Resource:
+                  Fn::Join:
+                    - ''
+                    - 
+                      - 'arn:aws:s3:::'
+                      - Ref: S3ImageBucket
+                      - '/*'
+  S3ImageBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: '${self:provider.apiName}-images'
+      CorsConfiguration:
+        CorsRules:
+          - AllowedOrigins:
+              - '*'
+            AllowedMethods:
+              - PUT
+              - GET
+            AllowedHeaders:
+              - '*'        
 
 
