@@ -4,7 +4,7 @@ import {Upload} from '@aws-sdk/lib-storage';
 import {getSignedUrl} from '@aws-sdk/s3-request-presigner';
 const s3Client = new S3Client({
   apiVersion: '2006-03-01',
-  region: 'eu-west-2',
+  region: process.env.region,
 });
 /**
  * This method stores the buffer from a valid image into S3 Bucket using the lib storage Upload
@@ -13,7 +13,6 @@ const s3Client = new S3Client({
  */
 export const storeImage = async (buffer, url, config) => {
   try {
-    // const mimeType = getUrlExtension(url);
     const imageKey = config ? config.key : `sessions-image-${Date.now()}`;
     if (isValidImageExtension(url)) {
       const parallelUpload = new Upload({

@@ -7,7 +7,7 @@ plugins:
 
 provider:
   name: aws
-  profile: ${self:custom.env.aws_profile,'default'}
+  # profile: ${self:custom.env.aws_profile,'default'} #not needed for local development
   stage: ${opt:stage, 'develop'}
   runtime: nodejs18.x
   memorySize: 512
@@ -27,7 +27,9 @@ custom:
     excludeRegex: \.ts|test|\.map
     includeModules:
       forceExclude:
-        - aws-sdk
+        - '@aws-sdk/client-s3'
+        - '@aws-sdk/lib-storage'
+        - '@aws-sdk/s3-request-presigner'
   warmup:
     enabled: true
 functions:
