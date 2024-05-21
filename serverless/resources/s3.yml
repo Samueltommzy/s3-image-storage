@@ -8,14 +8,14 @@ Resources:
         Statement:
           - Effect: Allow
             Principal:
-                Service:
-                  - lambda.amazonaws.com
+              Service:
+                - lambda.amazonaws.com
             Action: sts:AssumeRole
       Policies:
         - PolicyName: s3CustomAccess
-          PolicyDocument: 
+          PolicyDocument:
             Version: '2012-10-17'
-            Statement:  
+            Statement:
               - Effect: Allow
                 Action:
                   - s3:PutObject
@@ -23,8 +23,7 @@ Resources:
                 Resource:
                   Fn::Join:
                     - ''
-                    - 
-                      - 'arn:aws:s3:::'
+                    - - 'arn:aws:s3:::'
                       - Ref: S3ImageBucket
                       - '/*'
   S3ImageBucket:
@@ -39,6 +38,4 @@ Resources:
               - PUT
               - GET
             AllowedHeaders:
-              - '*'        
-
-
+              - '*'

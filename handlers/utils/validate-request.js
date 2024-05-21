@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from 'joi';
 const PostSchema = Joi.object({
   imageUrl: Joi.string().required(),
 });

@@ -1,5 +1,5 @@
 service: s3-image-storage
-frameworkVersion: "3"
+frameworkVersion: '3'
 
 plugins:
   - serverless-webpack
@@ -15,8 +15,8 @@ provider:
   apiName: ${self:service}-${self:provider.stage}
   logRetentionInDays: 14
   environment:
-    S3_IMAGE_BUCKET: "${self:provider.apiName}-images"
-    DEBUG: ""
+    S3_IMAGE_BUCKET: '${self:provider.apiName}-images'
+    DEBUG: ''
     REGION: ${self:provider.region}
   timeout: 15
 custom:
