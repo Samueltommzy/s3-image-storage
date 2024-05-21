@@ -4,10 +4,9 @@ import fetch from 'node-fetch';
 import schemas from '../utils/validate-request';
 import {storeImage} from '../utils/s3';
 
-const ImageRetrieveHandler = async (req, res, next) => {
-  console.log({req: req.body});
+const ImageStorageHandler = async (req, res, next) => {
   try {
-    assert(req.body, schemas.GetSchema);
+    assert(req.body, schemas.PostSchema);
     const imageData = await fetch(req.body.imageUrl);
 
     if (!imageData.ok) {
@@ -25,11 +24,10 @@ const ImageRetrieveHandler = async (req, res, next) => {
       },
     });
   } catch (e) {
-    console.log({e});
     throw e;
   }
 };
 
 export default {
-  ImageRetrieveHandler,
+  ImageStorageHandler,
 };
