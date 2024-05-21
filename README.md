@@ -1,5 +1,3 @@
-
-
 # Description
 
 This project holds the solution to sessions backend assessment.The main requirement is to build a nodejs service that receives an image url, fetches the image and uploads it to S3 bucket.
@@ -21,22 +19,28 @@ The following steps outline how this project can be run locally. In other to emu
 - once all dependencies are installed, start the project using the `npm start` script . This will expose the api by default on port 3000.
 
 ## Testing
+
 - Unit testing for the core functionalities (validating image extension,retrieving object from s3 and uploading object to s3) were implemented. This can be tested by running the `npm test` command.
 
 - To endpoints can be tested in two ways:
-    - Running the requests in the shared postman json
-        - To test the locally running version,select local environment in postman and ensure you still have the server running (`npm start`).
-        - To test the deployed version,select develop environment in postman.
 
-    - Using curl
-        - Test the endpoints using curl command. Below are example curl requests for the image upload endpoint and image retrieval endpoint (the location can also be pointed to the locally running version i.e localhost:3000/v1/*)
+  - Running the requests in the shared postman json
 
-        **image upload**
-        ```
-            curl --location 'https://lpkytpwhoc.execute-api.eu-west-2.amazonaws.com/v1/storeimage'  --header 'Content-Type: application/json'  --data '{ "imageUrl": "https://fastly.picsum.photos/id/17/2500/1667.jpg?hmac=HD-JrnNUZjFiP2UZQvWcKrgLoC_pc_ouUSWv8kHsJJY" }'
-        ```
+    - To test the locally running version,select local environment in postman and ensure you still have the server running (`npm start`).
+    - To test the deployed version,select develop environment in postman.
 
-        **get image** - using the imageKey returned from the above request
-        ```
-            curl --location 'https://lpkytpwhoc.execute-api.eu-west-2.amazonaws.com/v1/getimage?imageKey=sessions-image-1716255636173'
-        ```
+  - Using curl
+
+    - Test the endpoints using curl command. Below are example curl requests for the image upload endpoint and image retrieval endpoint (the location can also be pointed to the locally running version i.e localhost:3000/v1/\*)
+
+    **image upload**
+
+    ```
+        curl --location 'https://lpkytpwhoc.execute-api.eu-west-2.amazonaws.com/v1/storeimage'  --header 'Content-Type: application/json'  --data '{ "imageUrl": "https://fastly.picsum.photos/id/17/2500/1667.jpg?hmac=HD-JrnNUZjFiP2UZQvWcKrgLoC_pc_ouUSWv8kHsJJY" }'
+    ```
+
+    **get image** - using the imageKey returned from the above request
+
+    ```
+        curl --location 'https://lpkytpwhoc.execute-api.eu-west-2.amazonaws.com/v1/getimage?imageKey=sessions-image-1716260056300.jpg'
+    ```

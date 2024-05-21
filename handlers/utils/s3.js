@@ -1,5 +1,5 @@
 import {GetObjectCommand, S3Client} from '@aws-sdk/client-s3';
-import isValidImageExtension from './validate-image-extension';
+import extension from './validate-image-extension';
 import {Upload} from '@aws-sdk/lib-storage';
 import {getSignedUrl} from '@aws-sdk/s3-request-presigner';
 const s3Client = new S3Client({
@@ -13,8 +13,9 @@ const s3Client = new S3Client({
  */
 export const storeImage = async (buffer, url, config) => {
   try {
-    const imageKey = config ? config.key : `sessions-image-${Date.now()}`;
-    if (isValidImageExtension(url)) {
+    const imageExtension = extension.mimeType(url);
+    const imageKey = config ? config.key : `sessions-image-${Date.now()}.${imageExtension}`;
+    if (extension.isValidImageExtension(url)) {
       const parallelUpload = new Upload({
         client: config ? config.s3Client : s3Client,
         params: {
