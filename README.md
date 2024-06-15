@@ -1,6 +1,6 @@
 # Description
 
-This project holds the solution to sessions backend assessment.The main requirement is to build a nodejs service that receives an image url, fetches the image and uploads it to S3 bucket.
+A nodejs service that receives an image url, fetches the image and uploads it to S3 bucket.
 
 ## Functionalities
 
